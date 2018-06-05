@@ -117,17 +117,18 @@ export default {
         this.$emit('close')
       }).catch(error => console.log(error))
     },
-    createOrEditTask () {
+    async createOrEditTask () {
       this.urlTemps()
-      this.task.id === null
-        ? axios.post('task-list/', this.task).then(response => {
-          this.$store.dispatch('GETTASKS')
-          this.$emit('close')
-        }).catch(error => console.log(error))
-        : axios.put(`task-list/${this.task.id}/`, this.task).then(response => {
-          this.$store.dispatch('GETTASKS')
-          this.$emit('close')
-        }).catch(error => console.log(error))
+      if (this.task.id) {
+        await axios.put(`task-list/${this.task.id}/`, this.task)
+        this.$store.dispatch('GETTASKS')
+        this.$emit('close')
+      } else {
+        this.task.status = this.task.status.number
+        await axios.post('task-list/', this.task)
+        this.$store.dispatch('GETTASKS')
+        this.$emit('close')
+      }
     },
     cancel () {
       this.$emit('close')

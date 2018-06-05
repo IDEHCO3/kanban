@@ -1,4 +1,4 @@
-# kanban-refactoring
+# Kanban
 
 > A Vue.js project
 

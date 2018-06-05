@@ -2,8 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import state from '@/store/state'
 
-import login from '@/components/auth/login'
-import register from '@/components/auth/register'
+import login from '@/components/user/login'
+import register from '@/components/user/register'
+import userAccount from '@/components/user/user-account'
 
 import home from '@/components/home/home'
 import continuousActivity from '@/components/continuous-activity/continuous-activity'
@@ -38,6 +39,12 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: register
+    },
+    {
+      path: '/my_account',
+      name: 'my_account',
+      component: userAccount,
+      beforeEnter: requireAuth
     },
     {
       path: '/',

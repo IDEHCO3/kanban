@@ -97,11 +97,15 @@ export default {
     editImpediment (impediment) {
       axios.put(`impediment-list/${impediment.id}/`, impediment)
     },
-    deleteImpediment (impediment) {
+    async deleteImpediment (impediment) {
       const impedimentIndex = this.impediments.indexOf(impediment)
-      axios.delete(`impediment-list/${impediment.id}/`).then(res => {
-        this.impediments.splice(impedimentIndex, 1)
-      }).catch(error => console.log(error))
+      this.impediments.splice(impedimentIndex, 1)
+      if (this.impediments.length === 0) {
+        await axios.put(`task-list/${this.task.id}/`, {status: '2', responsible: this.task.responsible, project: this.task.project, sprint: this.task.sprint})
+        this.$store.dispatch('GETTASKS')
+        this.$emit('close')
+      }
+      await axios.delete(`impediment-list/${impediment.id}/`)
     },
     close () {
       this.$emit('close')

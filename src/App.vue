@@ -21,7 +21,7 @@
 
       <v-spacer></v-spacer>
 
-      <div v-if="loggedUser" class="blue--text"> {{ loggedUser }} </div>
+      <div v-if="loggedUser" class="blue--text"> {{ loggedUser.toUpperCase() }} </div>
 
       <v-menu offset-x left absolute :nudge-width="100">
         <v-toolbar-title slot="activator">
@@ -31,6 +31,11 @@
         </v-toolbar-title>
 
         <v-list>
+
+          <v-list-tile v-if="loggedUser" to="my_account">
+            <v-list-tile-title class="blue--text"> Minha Conta </v-list-tile-title>
+          </v-list-tile>
+
           <v-list-tile v-if="loggedUser" @click="logout">
             <v-list-tile-title class="red--text"> Logout </v-list-tile-title>
           </v-list-tile>

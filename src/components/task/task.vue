@@ -26,7 +26,7 @@
       tabColor="yellow darken-2"
       name="A fazer"
       :add="true"
-      @addTask="addOrEditTask = true"
+      @addTask="editTask"
       @editTask="editTask"
       :filterProject="filterProject"
       :filterUser="filterUser"
@@ -109,19 +109,24 @@ export default {
   methods: {
     editTask (task) {
       const editTask = Object.assign({}, task)
-      if (task.responsible) {
-        editTask.responsible = this.$store.state.users.find(responsible => responsible.id === idFromUrl(task.responsible))
+      if (task) {
+        if (task.project) {
+          editTask.project = this.$store.state.projects.find(project => project.id === idFromUrl(task.project))
+        }
+        if (task.sprint) {
+          editTask.sprint = this.$store.state.sprints.find(sprint => sprint.id === idFromUrl(task.sprint))
+        }
+        if (task.typeContinuousActivity) {
+          editTask.typeContinuousActivity = this.$store.state.continuousActivity.find(typeContinuousActivity => typeContinuousActivity.id === idFromUrl(task.typeContinuousActivity))
+        }
+        if (task.responsible) {
+          editTask.responsible = this.$store.state.users.find(responsible => responsible.id === idFromUrl(task.responsible))
+          this.$refs.modal.task = editTask
+        }
+      } else {
+        this.$refs.modal.task.responsible = this.$store.state.users.find(responsible => responsible.id === this.$store.state.auth.id)
+        this.$refs.modal.task.status = { name: 'A Fazer', number: '1' }
       }
-      if (task.project) {
-        editTask.project = this.$store.state.projects.find(project => project.id === idFromUrl(task.project))
-      }
-      if (task.sprint) {
-        editTask.sprint = this.$store.state.sprints.find(sprint => sprint.id === idFromUrl(task.sprint))
-      }
-      if (task.typeContinuousActivity) {
-        editTask.typeContinuousActivity = this.$store.state.continuousActivity.find(typeContinuousActivity => typeContinuousActivity.id === idFromUrl(task.typeContinuousActivity))
-      }
-      this.$refs.modal.task = editTask
       this.addOrEditTask = true
     },
     closeModal () {
@@ -151,6 +156,11 @@ export default {
       this.$refs.impedimentsModal.task = task
       axios.get(`impediment-list/filter/task/eq/${task.id}`).then(res => {
         this.$refs.impedimentsModal.impediments = res.data
+        const solved = res.data.every(impediment => impediment.resolution_date <= this.currentDate)
+        if (solved) {
+          axios.put(`task-list/${task.id}/`, {status: '2', responsible: task.responsible, project: task.project, sprint: task.sprint})
+          this.$store.dispatch('GETTASKS')
+        }
         this.impedimentsModal = true
       }).catch(error => console.log(error))
     }
