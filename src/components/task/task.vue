@@ -70,6 +70,14 @@
       :status="3">
     </task-card>
 
+    <v-btn @click.stop="pdfReport = true" fab fixed bottom right style="background: rgba(255, 255, 255, 0.3)">
+      <v-icon>description</v-icon>
+    </v-btn>
+
+    <v-dialog v-model="pdfReport" max-width="1200" persistent>
+      <pdf-report @close="pdfReport = false" :user="filterUser.id || $store.state.auth.id"></pdf-report>
+    </v-dialog>
+
     <v-dialog v-model="addOrEditTask" max-width="1200">
       <modal @close="closeModal" ref="modal"></modal>
     </v-dialog>
@@ -92,15 +100,17 @@ import taskCard from './task-card'
 import addImpedimentModal from './add-impediment-modal'
 import impedimentsModal from './impediments-modal'
 import modal from './modal'
+import pdfReport from './pdf-report'
 
 export default {
   name: 'task',
-  components: { addImpedimentModal, impedimentsModal, modal, taskCard },
+  components: { addImpedimentModal, impedimentsModal, modal, taskCard, pdfReport },
   data () {
     return {
       addOrEditTask: false,
       addImpedimentModal: false,
       impedimentsModal: false,
+      pdfReport: false,
       currentDate: '',
       filterUser: '',
       filterProject: ''
