@@ -140,16 +140,14 @@ export default {
       return this.temp.responsible
     },
     selectedProject () {
-      console.log("entrei no projeto")
-      console.log(this.task.project)
+      
       if (this.task.project) {
         this.temp.project = `${axios.defaults.baseURL}project-list/${this.task.project.id}/`
       }
       return this.temp.project
     },
     selectedSprint () {
-      console.log("entrei no sprint")
-      console.log(this.task.sprint)
+      
       if (this.task.sprint) {
         this.temp.sprint = `${axios.defaults.baseURL}sprint-list/${this.task.sprint.id_sprint}/`
       }

@@ -138,7 +138,7 @@ export default {
         this.$refs.modal.task.status = '1'
       }
       this.addOrEditTask = true
-      console.log(editTask)
+      
     },
     closeModal () {
       this.$refs.modal.task = {
