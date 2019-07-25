@@ -119,12 +119,12 @@ export default {
     },
     async createOrEditTask () {
       this.urlTemps()
+
       if (this.task.id) {
         await axios.put(`task-list/${this.task.id}/`, this.task)
         this.$store.dispatch('GETTASKS')
         this.$emit('close')
       } else {
-        this.task.status = this.task.status.number
         await axios.post('task-list/', this.task)
         this.$store.dispatch('GETTASKS')
         this.$emit('close')
@@ -140,14 +140,18 @@ export default {
       return this.temp.responsible
     },
     selectedProject () {
+      console.log("entrei no projeto")
+      console.log(this.task.project)
       if (this.task.project) {
         this.temp.project = `${axios.defaults.baseURL}project-list/${this.task.project.id}/`
       }
       return this.temp.project
     },
     selectedSprint () {
+      console.log("entrei no sprint")
+      console.log(this.task.sprint)
       if (this.task.sprint) {
-        this.temp.sprint = `${axios.defaults.baseURL}sprint-list/${this.task.sprint.id}/`
+        this.temp.sprint = `${axios.defaults.baseURL}sprint-list/${this.task.sprint.id_sprint}/`
       }
       return this.temp.sprint
     },

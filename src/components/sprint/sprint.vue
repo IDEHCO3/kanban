@@ -17,7 +17,7 @@
               </v-btn>
             </v-list-tile-action>
             <v-list-tile-action>
-              <v-btn  purple lighten-4 icon @click.native="removeSprint(sprint.id);">
+              <v-btn  purple lighten-4 icon @click.native="removeSprint(sprint);">
                 <v-icon dark color="red lighten-2">delete</v-icon>
               </v-btn>
             </v-list-tile-action>
@@ -71,10 +71,12 @@ export default {
         editSprint.responsible = this.$store.state.users.find(responsible => responsible.id === idFromUrl(sprint.responsible))
       }
       this.$refs.modal.sprint = editSprint
+      this.$refs.modal.responsible = editSprint.responsible
       this.openModal()
     },
-    removeSprint (id) {
-      axios.delete(`sprint-list/${id}/`).then(response => this.$store.dispatch('GETSPRINTS'))
+    removeSprint (um_sprint) {
+      
+      axios.delete(`sprint-list/${um_sprint.id_sprint}/`).then(response => this.$store.dispatch('GETSPRINTS'))
         .catch(error => console.log(error))
     },
     openModal () {

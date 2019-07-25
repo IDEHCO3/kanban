@@ -12,7 +12,7 @@
           </v-flex>
 
           <v-flex xs12>
-            <v-select class="input-group--focused" label="Responsável" autocomplete v-model="sprint.responsible" :items="users" item-text="name" @select="selectedResponsible"></v-select>
+            <v-select class="input-group--focused" label="Responsável" autocomplete v-model="responsible" :items="users" item-text="name" ></v-select>
           </v-flex>
 
           <v-flex xs12 sm5 offset-sm1>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 
@@ -56,6 +57,7 @@ export default {
   name: 'sprint-modal',
   data () {
     return {
+      responsible: null,
       sprint: {
         tasks: [],
         impediments: [],
@@ -66,43 +68,42 @@ export default {
         responsible: '',
         project: ''
       },
-      temp: {
-        responsible: ''
-      },
+      
       menu_start: false,
       menu_end: false
     }
   },
   methods: {
     createOrEditSprint () {
-      this.urlTemps()
-      this.sprint.id === null
-        ? axios.post('sprint-list/', this.sprint).then(response => {
+      this.sprint.responsible = `${axios.defaults.baseURL}user-list/${this.responsible.id}/`
+       if (!this.sprint.id_sprint)  {
+          axios.post('sprint-list/', this.sprint).then(response => {
           this.$store.dispatch('GETSPRINTS')
           this.$emit('close')
         }).catch(error => console.log(error))
-        : axios.put(`sprint-list/${this.sprint.id}/`, this.sprint).then(response => {
-          this.$store.dispatch('GETSPRINTS')
-          this.$emit('close')
-        }).catch(error => console.log(error))
+        }
+        else {
+                    
+          axios.put(`sprint-list/${this.sprint.id_sprint}/`, this.sprint).then(response => {
+            //this.responsible = `${axios.defaults.baseURL}user-list/${this.sprint.responsible.id}/`
+            this.$store.dispatch('GETSPRINTS')
+            this.$emit('close')
+          }).catch(error => console.log(error))
+        }
     },
     cancel () {
       this.$emit('close')
-    },
-    selectedResponsible () {
-      if (this.sprint.responsible) {
-        this.temp.responsible = `${axios.defaults.baseURL}user-list/${this.sprint.responsible.id}/`
-      }
-      return this.temp.responsible
-    },
-    urlTemps () {
-      this.sprint.responsible = this.selectedResponsible()
     }
   },
   computed: {
     ...mapGetters({
       users: 'getUsers'
     })
+  },
+  created () {
+    
+    if (this.sprint.responsible)
+      this.responsible = `${axios.defaults.baseURL}user-list/${this.sprint.responsible.id}/`
   }
 }
 </script>

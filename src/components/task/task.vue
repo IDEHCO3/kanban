@@ -124,7 +124,7 @@ export default {
           editTask.project = this.$store.state.projects.find(project => project.id === idFromUrl(task.project))
         }
         if (task.sprint) {
-          editTask.sprint = this.$store.state.sprints.find(sprint => sprint.id === idFromUrl(task.sprint))
+          editTask.sprint = this.$store.state.sprints.find(sprint => sprint.id_sprint === idFromUrl(task.sprint))
         }
         if (task.typeContinuousActivity) {
           editTask.typeContinuousActivity = this.$store.state.continuousActivity.find(typeContinuousActivity => typeContinuousActivity.id === idFromUrl(task.typeContinuousActivity))
@@ -135,9 +135,10 @@ export default {
         }
       } else {
         this.$refs.modal.task.responsible = this.$store.state.users.find(responsible => responsible.id === this.$store.state.auth.id)
-        this.$refs.modal.task.status = { name: 'A Fazer', number: '1' }
+        this.$refs.modal.task.status = '1'
       }
       this.addOrEditTask = true
+      console.log(editTask)
     },
     closeModal () {
       this.$refs.modal.task = {

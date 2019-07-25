@@ -98,16 +98,18 @@ export default {
       this.$emit('editTask', task)
     },
     removeTask (task) {
-      axios.delete(`task-list/${task.id}/`).then(res => {
-        this.$store.dispatch('GETTASKS')
-        const taskIndex = this.cardTasks.indexOf(task)
-        this.cardTasks.splice(taskIndex, 1)
-      }).catch(error => console.log(error))
+      axios.delete(`task-list/${task.id}/`)
+        .then(res => {
+          this.$store.dispatch('GETTASKS')
+          const taskIndex = this.cardTasks.indexOf(task)
+          this.cardTasks.splice(taskIndex, 1)
+        })
+        .catch(error => console.log(error))
     },
     filterCardsByProject () {
-      axios.get(`task-list/filter/project/eq/${this.filterProject.id}/`).then(res => {
-        this.cardTasks = this.filterCardStatus(res.data)
-      }).catch(error => console.log(error))
+      axios.get(`task-list/filter/project/eq/${this.filterProject.id}/`)
+        .then(res => { this.cardTasks = this.filterCardStatus(res.data) })
+        .catch(error => console.log(error))
     },
     filterCardsDefault () {
       this.cardTasks = this.filterCardStatus(this.$store.state.tasks)

@@ -74,8 +74,8 @@
 <script>
 import axios from 'axios'
 import { Base } from '@/utils/base'
-
 export default {
+  /*eslint-disable */
   name: 'user-account',
   data () {
     return {
@@ -94,13 +94,19 @@ export default {
       user: {}
     }
   },
+  /*eslint-disable */
   methods: {
+    // eslint-disable-next-line no-use-before-define
+
     checkPassword () {
       return Base.encode(this.oldPassword) === this.user.password
     },
+    // eslint-disable-next-line no-use-before-define
+
     async saveChanges () {
       if (!this.checkPassword()) {
-        return this.errorDialog = true
+         this.errorDialog = true
+         return this.errorDialog
       }
       try {
         await axios.put(`user-list/${this.user.id}/`, { ...this.user, password: Base.encode(this.newPassword) })

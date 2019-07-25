@@ -7,7 +7,7 @@
       <v-container grid-list-md >
         <v-layout wrap >
 
-          <v-flex xs12 sm10 sm10 offset-sm1>
+          <v-flex xs12 sm10 offset-sm1>
             <v-select class="input-group--focused" label="Responsável" autocomplete v-model="currentUser" :items="users" item-text="name" item-value="id"></v-select>
           </v-flex>
 
