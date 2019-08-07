@@ -19,7 +19,7 @@ function requireAuth (to, from, next) {
   const auth = state.auth
   if (auth.token === null || auth.username === null) {
     next({
-      path: '/login',
+      path: '/kanban/login',
       query: { redirect: to.fullPath }
     })
   } else {
@@ -31,53 +31,53 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/login',
+      path: '/kanban/login',
       name: 'login',
       component: login
     },
     {
-      path: '/register',
+      path: '/kanban/register',
       name: 'register',
       component: register
     },
     {
-      path: '/my_account',
+      path: '/kanban/my_account',
       name: 'my_account',
       component: userAccount,
       beforeEnter: requireAuth
     },
     {
-      path: '/',
+      path: '/kanban/',
       name: 'home',
       component: home,
       beforeEnter: requireAuth
     },
     {
-      path: '/continuous_activity',
+      path: '/kanban/continuous_activity',
       name: 'continuous_activity',
       component: continuousActivity,
       beforeEnter: requireAuth
     },
     {
-      path: '/project',
+      path: '/kanban/project',
       name: 'project',
       component: project,
       beforeEnter: requireAuth
     },
     {
-      path: '/sprint',
+      path: '/kanban/sprint',
       name: 'sprint',
       component: sprint,
       beforeEnter: requireAuth
     },
     {
-      path: '/task',
+      path: '/kanban/task',
       name: 'task',
       component: task,
       beforeEnter: requireAuth
     },
     {
-      path: '/user_tasks',
+      path: '/kanban/user_tasks',
       name: 'user_tasks',
       component: userTasks,
       beforeEnter: requireAuth

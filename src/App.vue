@@ -70,19 +70,19 @@ export default {
     return {
       drawer: true,
       items: [
-        {title: 'Gestão de atividades', route: '/', icon: 'home', color: 'white'},
-        {title: 'Projetos', route: '/project', icon: 'format_list_numbered', color: 'blue'},
-        {title: 'Tarefas', route: '/task', icon: 'list', color: 'green'},
-        {title: 'Sprints', route: '/sprint', icon: 'motorcycle', color: 'yellow'},
-        {title: 'Tipo atividade contínua/extra etc', route: '/continuous_activity', icon: 'assignment', color: 'orange'},
-        {title: 'Tarefas por usuarios', route: '/user_tasks', icon: 'account_box', color: 'teal lighten-4'}
+        {title: 'Gestão de atividades', route: '/kanban/', icon: 'home', color: 'white'},
+        {title: 'Projetos', route: '/kanban/project', icon: 'format_list_numbered', color: 'blue'},
+        {title: 'Tarefas', route: '/kanban/task', icon: 'list', color: 'green'},
+        {title: 'Sprints', route: '/kanban/sprint', icon: 'motorcycle', color: 'yellow'},
+        {title: 'Tipo atividade contínua/extra etc', route: '/kanban/continuous_activity', icon: 'assignment', color: 'orange'},
+        {title: 'Tarefas por usuarios', route: '/kanban/user_tasks', icon: 'account_box', color: 'teal lighten-4'}
       ]
     }
   },
   methods: {
     logout () {
       this.$store.commit('logout')
-      this.$router.push('/login')
+      this.$router.push('/kanban/login')
     }
   },
   computed: {

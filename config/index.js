@@ -16,7 +16,7 @@ module.exports = {
 
     // Various Dev Server settings
     //host: 'luc00551686.ibge.gov.br', // can be overwritten by process.env.HOST
-    host: 'ggt-des.ibge.gov.br',//ip.address(),
+    host: ip.address(),//ip.address(),'ggt-des.ibge.gov.br'
     port: 8085, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,

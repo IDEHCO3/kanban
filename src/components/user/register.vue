@@ -129,7 +129,7 @@ export default {
               token: response.headers['x-access-token']
             })
             axios.defaults.headers.common['Authorization'] = `Bearer ${this.$store.state.token}`
-            this.$router.push('/')
+            this.$router.push('/kanban/')
           }
         }).catch(error => console.log(error))
       }

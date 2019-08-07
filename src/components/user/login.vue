@@ -68,7 +68,7 @@ export default {
             token: response.headers['x-access-token']
           })
           this.$store.dispatch('GETUSERS')
-          this.$router.push('/')
+          this.$router.push('/kanban/')
         }
       }).catch(error => {
         console.log(error)

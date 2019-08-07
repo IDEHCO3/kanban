@@ -7,12 +7,12 @@ import router from './router'
 import store from './store/index'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 Vue.config.productionTip = false
 Vue.use(Vuetify)
 
-// axios.defaults.baseURL = 'http://172.30.10.86/scrum-list/'
-axios.defaults.baseURL = 'http://ggt-des.ibge.gov.br/scrum-list/'
+axios.defaults.baseURL = 'http://ggt-des.ibge.gov.br/kanban/scrum-list/'
 axios.defaults.headers.common['Accept'] = 'application/json'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
