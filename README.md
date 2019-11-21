@@ -1,6 +1,6 @@
 # Kanban
 
-> A Vue.js project
+> A Vue.js project for task and workflow control through the use of columns and cards.
 
 ## Build Setup
 

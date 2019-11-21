@@ -12,7 +12,7 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 Vue.config.productionTip = false
 Vue.use(Vuetify)
 
-axios.defaults.baseURL = 'http://ggt-des.ibge.gov.br/kanban/scrum-list/'
+axios.defaults.baseURL = 'http://ggt-des.ibge.gov.br/api/kanban/'
 axios.defaults.headers.common['Accept'] = 'application/json'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 

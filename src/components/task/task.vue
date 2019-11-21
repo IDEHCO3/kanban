@@ -70,12 +70,12 @@
       :status="3">
     </task-card>
 
-    <v-btn @click.stop="pdfReport = true" fab fixed bottom right style="background: rgba(255, 255, 255, 0.3)">
-      <v-icon>description</v-icon>
+    <v-btn @click.stop="handleClickOnPdf" fab fixed  bottom right style="background: rgba(255, 255, 255, 0.3)">
+      <v-icon large>description</v-icon>
     </v-btn>
 
     <v-dialog v-model="pdfReport" max-width="1200" persistent>
-      <pdf-report @close="pdfReport = false" :user="filterUser.id || $store.state.auth.id"></pdf-report>
+      <pdf-report @close="pdfReport = false" :user="filterUser.id || $store.state.auth.id" :project="filterProject"></pdf-report>
     </v-dialog>
 
     <v-dialog v-model="addOrEditTask" max-width="1200">
@@ -101,6 +101,8 @@ import addImpedimentModal from './add-impediment-modal'
 import impedimentsModal from './impediments-modal'
 import modal from './modal'
 import pdfReport from './pdf-report'
+import PDFGenerator from '@/utils/PDFGenerator'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'task',
@@ -111,6 +113,7 @@ export default {
       addImpedimentModal: false,
       impedimentsModal: false,
       pdfReport: false,
+      month: new Date().toLocaleDateString().split('/').slice(1).reverse().join('-'),
       currentDate: '',
       filterUser: '',
       filterProject: ''
@@ -174,7 +177,22 @@ export default {
         }
         this.impedimentsModal = true
       }).catch(error => console.log(error))
+    },
+    handleClickOnPdf(){
+      if(this.filterProject){
+        const { name, id }  = this.filterProject
+        const projectUrl = `http://ggt-des.ibge.gov.br/api/kanban/project-list/${id}`
+        let tasklist = this.tasks.filter( task => task.project === projectUrl)
+        PDFGenerator(tasklist, name, this.month)
+      } else {
+        this.pdfReport = true
+      }
     }
+  },
+  computed: {
+    ...mapGetters({
+      tasks: 'getTasks'
+    })
   },
   created () {
     this.currentDate = new Date().toLocaleDateString().split('/').reverse().join('-')

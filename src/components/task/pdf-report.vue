@@ -7,8 +7,12 @@
       <v-container grid-list-md >
         <v-layout wrap >
 
-          <v-flex xs12 sm10 offset-sm1>
+          <v-flex xs6 sm10 offset-sm1 v-if="!selectedProject">
             <v-select class="input-group--focused" label="Responsável" autocomplete v-model="currentUser" :items="users" item-text="name" item-value="id"></v-select>
+          </v-flex>
+
+          <v-flex xs6 sm10 offset-sm1 v-else>
+            <v-select class="input-group--focused" label="Projeto" autocomplete v-model="selectedProjectID" :items="projects" item-text="name" item-value="id"></v-select>
           </v-flex>
 
           <v-flex xs12 sm10 offset-sm1 class="green lighten-5">
